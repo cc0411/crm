@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>主机管理</title>
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>主机管理</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="table_basic.html#">选项1</a>
+                                </li>
+                                <li><a href="table_basic.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-5 m-b-xs">
+                                <select class="input-sm form-control input-s-sm inline">
+                                    <option value="0">请选择</option>
+                                    <option value="1">选项1</option>
+                                    <option value="2">选项2</option>
+                                    <option value="3">选项3</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 m-b-xs">
+                                <div data-toggle="buttons" class="btn-group">
+                                    <label class="btn btn-sm btn-white">
+                                        <input type="radio" id="option1" name="options">天</label>
+                                    <label class="btn btn-sm btn-white active">
+                                        <input type="radio" id="option2" name="options">周</label>
+                                    <label class="btn btn-sm btn-white">
+                                        <input type="radio" id="option3" name="options">月</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入关键词" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>主机名</th>
+                                        <th>外网地址</th>
+                                        <th>内网地址</th>
+                                        <th>机房</th>
+                                        <th>角色</th>
+                                        <th>主机组</th>
+                                        <th>创建时间</th>
+                                        <th>更新时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {%  for host in host_list %}
+                                        <td>
+                                            <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" checked="" class="i-checks" name="input[]" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                        </td>
+
+                                        <td>{{ host.id }}</td>
+                                        <td>{{ host.hostname }}</td>
+                                        <td>{{ host.wip }}</td>
+                                        <td>{{ host.lip }}</td>
+                                        <td>{{ host.idc.name }}</td>
+                                        <td>{% for tag in host.tag.all %}
+                                        <span>{{ tag.name }}</span>
+                                        {% endfor %}
+                                        </td>
+                                        <td>{% for  hg in host.hostgroup.all %}
+                                            <span>
+                                            {{ hg.name }}
+                                            </span>
+
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ host.ctime }}</td>
+                                        <td>{{ host.utime }}</td>
+                                        <td><a href="table_basic.html#"><i class=""></i>修改</a>|<a href="table_basic.html#"><i class=""></i>删除</a>
+                                        </td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <!-- Peity -->
+    <script src="/static/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script><div class="gohome"><a class="animated bounceInUp" href="index.html?v=4.0" title="返回首页"><i class="fa fa-home"></i></a></div>
+
+
+    <!-- iCheck -->
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="/static/js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+</body>
+</html>
